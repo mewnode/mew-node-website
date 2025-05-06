@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MEW NODE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+  <link rel="manifest" href="site.webmanifest">
+  <style>
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --accent: #ff73e1;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: 'Space Grotesk', sans-serif;
+      overflow-x: hidden;
+    }
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+      background-color: #000;
+    }
+    h1 {
+      font-size: 12vw;
+      color: var(--fg);
+      font-weight: 900;
+      letter-spacing: -1px;
+      text-shadow: 0 0 12px #ff73e1, 0 0 22px #8ab4ff;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .paw-icon {
+      height: 1.25em;
+      width: auto;
+      transition: transform 1.5s ease-in-out;
+      margin-top: 30px;
+    }
+    h1:hover .paw-icon {
+      transform: rotate(360deg);
+    }
+    section {
+      padding: 6rem 1rem;
+      text-align: center;
+    }
+    .big-text {
+      font-size: clamp(2.5rem, 7.5vw, 5rem);
+      max-width: 1000px;
+      margin: 0 auto;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+    .marquee {
+      width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
+      margin-top: 0.5rem;
+      margin-bottom: 2.5rem;
+      position: relative;
+      height: 3rem;
+    }
+    .marquee-content {
+      display: flex;
+      width: max-content;
+      animation: scroll-left 15s linear infinite;
+      font-size: clamp(1.25rem, 3vw, 2.25rem);
+      font-weight: 900;
+      color: var(--fg);
+      text-shadow: 0 0 12px #ff73e1, 0 0 22px #8ab4ff;
+    }
+    .marquee-content span {
+     padding-right: 0.5rem;
+     white-space: nowrap;
+    }
+
+    @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+    }
+    .stake-button,
+    .contact-button {
+      margin-top: 2rem;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--fg);
+      border: 2px solid var(--accent);
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      background: none;
+      cursor: pointer;
+      text-shadow: 0 0 15px #ff73e1, 0 0 30px #8ab4ff;
+      transition: transform 0.3s;
+    }
+    .stake-button:hover,
+    .contact-button:hover {
+      transform: scale(1.05);
+    }
+    .contact-frame {
+      display: none;
+      margin-top: 2rem;
+      border: 2px solid var(--accent);
+      padding: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      border-radius: 1rem;
+      background-color: #111;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: all 0.4s ease;
+    }
+    .contact-frame.show {
+      display: block;
+      opacity: 1;
+      transform: scale(1);
+    }
+    .contact-frame form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .contact-frame input,
+    .contact-frame textarea {
+      padding: 1rem;
+      font-size: 1.25rem;
+      border-radius: 0.5rem;
+      border: 2px solid var(--accent);
+      background: #111;
+      color: var(--fg);
+      font-family: 'Space Grotesk', sans-serif;
+      box-shadow: 0 0 10px rgba(255, 115, 225, 0.3);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .contact-frame input:focus,
+    .contact-frame textarea:focus {
+      outline: none;
+      border-color: #8ab4ff;
+      box-shadow: 0 0 15px rgba(138, 180, 255, 0.6);
+    }
+    .contact-frame button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--fg);
+      background: var(--accent);
+      border: none;
+      border-radius: 1rem;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 115, 225, 0.4);
+      transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    }
+    .contact-frame button:hover {
+      background: #8ab4ff;
+      box-shadow: 0 0 25px rgba(138, 180, 255, 0.6);
+      transform: scale(1.05);
+    }
+    .contact-status {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: var(--accent);
+      display: none;
+    }
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 16vw;
+      }
+      section {
+        padding: 4rem 1rem;
+      }
+    }
+    .acsent {
+      color: var(--fg);
+      letter-spacing: -1px;
+      text-shadow: 0 0 12px #ff73e1, 0 0 22px #8ab4ff;
+      font-size: clamp(2.5rem, 7.5vw, 5rem);
+      max-width: 1000px;
+      margin: 0 auto;
+      line-height: 1.5;
+      font-weight: 900;
+    }
+    .paw-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url("PAWS.png");
+      background-repeat: repeat;
+      background-size: 200px;
+      opacity: 0.07;
+      animation: movePaws 60s linear infinite;
+      z-index: -1;
+    }
+    @keyframes movePaws {
+      0% {
+          background-position: 0 0;
+      }
+      100% {
+          background-position: 1000px 1000px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="paw-bg"></div>
+  <header>
+    <div class="marquee">
+        <div class="marquee-content">
+          <span>TRUSTED BY CATS • RUNNING FOR HUMANS • ZERO FEES • MEV OPTIMIZED • STAKE WITH PURRFECTION •</span>
+          <span>TRUSTED BY CATS • RUNNING FOR HUMANS • ZERO FEES • MEV OPTIMIZED • STAKE WITH PURRFECTION •</span>
+          <span>TRUSTED BY CATS • RUNNING FOR HUMANS • ZERO FEES • MEV OPTIMIZED • STAKE WITH PURRFECTION •</span>
+        </div>
+      </div>      
+    <h1>
+      MEW NODE
+      <a href="https://solana.org/sfdp-validators/4RLcStbSkt5S1Xm4mStup6N13PGyAfAWy7Vs5d7yJRnY" target="_blank">
+        <img src="PAW.png" alt="paw" class="paw-icon">
+      </a>
+    </h1>
+    <button class="stake-button" onclick="window.open('https://staking.kiwi/app/5ML8GpaqaZ3bv4nCKLRY8gb2WNMJkXinHwDwMWeNWjkk', '_blank')">GO STAKE</button>
+  </header>
+  <section>
+    <p class="big-text">
+      Not a dashboard.<br>
+      Not a pie chart.<br>
+      Just a raw, purring validator. Built to stake.<br>
+    </p>
+  </section>
+  <section>
+    <p class="big-text">
+      Let's connect in style.<br>
+      Leave a note and<br><span class="acsent">MEW</span> will purr back.
+    </p>
+    <button class="contact-button" id="contact-toggle">CONTACT</button>
+    <div class="contact-frame" id="contact-frame">
+      <form action="https://formspree.io/f/mjkwwjwe" method="POST" id="contact-form">
+        <input type="text" name="name" placeholder="Human alias goes here" required>
+        <input type="email" name="_replyto" placeholder="Laser inbox address?" required>
+        <textarea name="message" rows="5" placeholder="What’s on your mind, cat person?" required></textarea>
+        <button type="submit">SEND IT HUMAN</button>
+      </form>
+      <div class="contact-status" id="contact-status">Transmitting meow signal...</div>
+    </div>
+  </section>
+  <section>
+    <p class="big-text">
+      Come for the memes.<br>
+      Stay for the rewards.<br>
+      Stake with <span class="acsent">MEW NODE</span> and let your <span class="acsent">SOL</span> chase laser beams.
+    </p>
+  </section>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const contactToggle = document.getElementById("contact-toggle");
+      const contactFrame = document.getElementById("contact-frame");
+      const contactStatus = document.getElementById("contact-status");
+  
+      contactToggle.addEventListener("click", function (event) {
+        event.stopPropagation();
+        if (contactFrame.classList.contains("show")) {
+          contactFrame.classList.remove("show");
+          setTimeout(() => contactFrame.style.display = "none", 400);
+        } else {
+          contactFrame.style.display = "block";
+          requestAnimationFrame(() => contactFrame.classList.add("show"));
+        }
+      });
+  
+      document.body.addEventListener("click", function (event) {
+        if (!contactFrame.contains(event.target) && !contactToggle.contains(event.target)) {
+          if (contactFrame.classList.contains("show")) {
+            contactFrame.classList.remove("show");
+            setTimeout(() => contactFrame.style.display = "none", 400);
+          }
+        }
+      });
+  
+      const form = document.getElementById("contact-form");
+      form.addEventListener("submit", function () {
+        contactStatus.style.display = "block";
+        contactStatus.textContent = "Transmitting meow signal...";
+      });
+    });
+  </script>  
+</body>
+</html>
